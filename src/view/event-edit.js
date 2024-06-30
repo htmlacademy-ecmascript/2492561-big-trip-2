@@ -1,6 +1,17 @@
 import {createElement} from '../render.js';
+import { mockDestinations } from '../mock/mock-destinations.js';
+// function createOffersTemplate({title, price, isChoosen}) {
+// }
+function createDestinationList({name}) {
+  return (
+    `<option value="${name}"></option>`
+  );
+}
 
-function eventEditTemplate() {
+function eventEditTemplate(edit) {
+  const {type, destination, basePrice} = edit;
+  const name = mockDestinations.find((destinationPoint) => destinationPoint.id === destination).name;
+
   return (
     `<li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -8,7 +19,7 @@ function eventEditTemplate() {
           <div class="event__type-wrapper">
             <label class="event__type  event__type-btn" for="event-type-toggle-1">
               <span class="visually-hidden">Choose event type</span>
-              <img class="event__type-icon" width="17" height="17" src="img/icons/flight.png" alt="Event type icon">
+              <img class="event__type-icon" width="17" height="17" src="img/icons/${type}.png" alt="Event type icon">
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -66,13 +77,11 @@ function eventEditTemplate() {
 
           <div class="event__field-group  event__field-group--destination">
             <label class="event__label  event__type-output" for="event-destination-1">
-              Flight
+              ${type}
             </label>
-            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Geneva" list="destination-list-1">
+            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
             <datalist id="destination-list-1">
-              <option value="Amsterdam"></option>
-              <option value="Geneva"></option>
-              <option value="Chamonix"></option>
+              ${mockDestinations.map((name) => createDestinationList(name)).join('')}
             </datalist>
           </div>
 
@@ -89,7 +98,7 @@ function eventEditTemplate() {
               <span class="visually-hidden">Price</span>
               &euro;
             </label>
-            <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="">
+            <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
           </div>
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -103,8 +112,12 @@ function eventEditTemplate() {
 }
 
 export default class EventEdit {
+  constructor({edit}) {
+    this.edit = edit;
+  }
+
   getTemplate() {
-    return eventEditTemplate();
+    return eventEditTemplate(this.edit);
   }
 
   getElement() {
