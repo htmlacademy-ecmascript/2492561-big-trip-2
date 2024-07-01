@@ -9,25 +9,40 @@ import { render } from '../render';
 
 export default class BoardPresenter {
   tripControlsContainer = document.querySelector('.trip-main');
-  tripEventsContainer = document.querySelector('.trip-events');
-  tripEventList = new TripEventsList();
+  tripEventsList = new TripEventsList();
 
+  constructor({boardContainer, pointModel}) {
+    this.boardContainer = boardContainer;
+    this.pointModel = pointModel;
+  }
 
   initMain() {
+    this.eventPoints = [...this.pointModel.getPoint()];
+    this.eventEdit = this.pointModel.getEdit();
+    this.eventOffers = this.pointModel.getOffers();
+    this.eventDestination = this.pointModel.getDestination();
     //Рендер трип инфо
     render(new TripInfo, this.tripControlsContainer, 'afterbegin');
 
     //Рендер нового ивента
-    render(new TripEventsSort(), this.tripEventsContainer);
-    render(this.tripEventList,this.tripEventsContainer);
-    render(new EventEdit(), this.tripEventList.getElement());
+    render(new TripEventsSort(), this.boardContainer);
+    render(this.tripEventsList,this.boardContainer);
+    render(new EventEdit({
+      edit: this.eventEdit
+    }), this.tripEventsList.getElement());
     const eventDetails = document.querySelector('.event__details');
-    render(new EventOffers(), eventDetails);
-    render(new EventDestination(), eventDetails);
+    render(new EventOffers({
+      offers: this.eventOffers
+    }), eventDetails);
+    render(new EventDestination({
+      destination: this.eventDestination
+    }), eventDetails);
 
     //Рендер уже созданных ивентов
-    for (let i = 0; i < 3; i++) {
-      render(new TripEvent(), this.tripEventList.getElement());
+    for (let i = 0; i < this.eventPoints.length; i++) {
+      render(new TripEvent({
+        point: this.eventPoints[i]
+      }), this.tripEventsList.getElement());
     }
   }
 }
