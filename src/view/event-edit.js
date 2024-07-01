@@ -81,7 +81,7 @@ function eventEditTemplate(edit) {
             </label>
             <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
             <datalist id="destination-list-1">
-              ${mockDestinations.map((name) => createDestinationList(name)).join('')}
+              ${mockDestinations.map((names) => createDestinationList(names)).join('')}
             </datalist>
           </div>
 

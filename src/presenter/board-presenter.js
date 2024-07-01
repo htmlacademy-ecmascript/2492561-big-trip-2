@@ -21,7 +21,6 @@ export default class BoardPresenter {
     this.eventEdit = this.pointModel.getEdit();
     this.eventOffers = this.pointModel.getOffers();
     this.eventDestination = this.pointModel.getDestination();
-    console.log(this.eventDestination);
     //Рендер трип инфо
     render(new TripInfo, this.tripControlsContainer, 'afterbegin');
 
