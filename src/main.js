@@ -1,6 +1,6 @@
 import TripControls from './view/trip-controls';
 import BoardPresenter from './presenter/board-presenter';
-import { render } from './render';
+import { render } from './framework/render';
 
 
 import PointsModel from './model/points-model';

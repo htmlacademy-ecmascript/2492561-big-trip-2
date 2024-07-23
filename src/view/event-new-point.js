@@ -101,10 +101,7 @@ function eventEditTemplate(edit) {
           </div>
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-          <button class="event__reset-btn" type="reset">Delete</button>
-          <button class="event__rollup-btn" type="button">
-            <span class="visually-hidden">Open event</span>
-          </button>
+          <button class="event__reset-btn" type="reset">Cancel</button>
         </header>
         <section class="event__details">
         </section>
@@ -113,7 +110,7 @@ function eventEditTemplate(edit) {
   );
 }
 
-export default class EventEdit extends AbstractView{
+export default class EventNewPoint extends AbstractView{
   constructor({edit}) {
     super();
     this.edit = edit;
