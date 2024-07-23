@@ -15,11 +15,11 @@ export default class PointsModel {
     return this.edit;
   }
 
-  getDestination() {
-    return mockDestinations.find((city) => city.id === this.edit.destination);
+  getDestination(point) {
+    return mockDestinations.find((city) => city.id === point.destination);
   }
 
-  getOffers() {
-    return this.edit.offers;
+  getOffers(point) {
+    return point.offers;
   }
 }

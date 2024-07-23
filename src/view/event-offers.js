@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createOfferTemplate({title, price, isChoosen}) {
   return (
@@ -32,24 +32,13 @@ function eventOffersTemplate(offers) {
   return (`${renderOffers(offers)}`);
 }
 
-export default class EventOffers {
+export default class EventOffers extends AbstractView{
   constructor({offers}) {
+    super();
     this.offers = offers;
   }
 
-  getTemplate() {
+  get template() {
     return eventOffersTemplate(this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }

@@ -1,5 +1,5 @@
-import {createElement} from '../render.js';
 import { mockDestinations } from '../mock/mock-destinations.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createOfferTemplate ({title, price}) {
   return (
@@ -52,24 +52,13 @@ function eventTemplate(point) {
   );
 }
 
-export default class TripEvent {
+export default class TripEvent extends AbstractView{
   constructor({point}) {
+    super();
     this.point = point;
   }
 
-  getTemplate() {
+  get template() {
     return eventTemplate(this.point);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
